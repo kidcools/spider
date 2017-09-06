@@ -4,9 +4,9 @@ import java.util.Set;
 
 public class MyCrawler {
 	/**
-	 * Ê¹ÓÃÖÖ×Ó³õÊ¼»¯ URL ¶ÓÁĞ
+	 * ä½¿ç”¨ç§å­åˆå§‹åŒ– URL é˜Ÿåˆ—
 	 * @return
-	 * @param seeds ÖÖ×ÓURL
+	 * @param seeds ç§å­URL
 	 */ 
 	private void initCrawlerWithSeeds(String[] seeds)
 	{
@@ -14,12 +14,12 @@ public class MyCrawler {
 			LinkQueue.addUnvisitedUrl(seeds[i]);
 	}	
 	/**
-	 * ×¥È¡¹ı³Ì
+	 * æŠ“å–è¿‡ç¨‹
 	 * @return
 	 * @param seeds
 	 */
 	public void crawling(String[] seeds)
-	{   //¶¨Òå¹ıÂËÆ÷£¬ÌáÈ¡ÒÔhttp://www.lietu.com¿ªÍ·µÄÁ´½Ó
+	{   //å®šä¹‰è¿‡æ»¤å™¨ï¼Œæå–ä»¥http://www.****.comå¼€å¤´çš„é“¾æ¥
 		LinkFilter filter = new LinkFilter(){
 			public boolean accept(String url) {
 				if(url.startsWith("http://www.lietu.com"))
@@ -28,35 +28,35 @@ public class MyCrawler {
 					return false;
 			}
 		};
-		//³õÊ¼»¯ URL ¶ÓÁĞ
+		//åˆå§‹åŒ– URL é˜Ÿåˆ—
 		initCrawlerWithSeeds(seeds);
-		//Ñ­»·Ìõ¼ş£º´ı×¥È¡µÄÁ´½Ó²»¿ÕÇÒ×¥È¡µÄÍøÒ³²»¶àÓÚ1000
+		//å¾ªç¯æ¡ä»¶ï¼šå¾…æŠ“å–çš„é“¾æ¥ä¸ç©ºä¸”æŠ“å–çš„ç½‘é¡µä¸å¤šäº1000
 		while(!LinkQueue.unVisitedUrlsEmpty()&&LinkQueue.getVisitedUrlNum()<=1000)
 		{
-			//¶ÓÍ·URL³ö¶ÓÁĞ
+			//é˜Ÿå¤´URLå‡ºé˜Ÿåˆ—
 			String visitUrl=(String)LinkQueue.unVisitedUrlDeQueue();
 			if(visitUrl==null)
 				continue;
 			DownLoadFile downLoader=new DownLoadFile();
-			//ÏÂÔØÍøÒ³
+			//ä¸‹è½½ç½‘é¡µ
 			downLoader.downloadFile(visitUrl);
-			//¸Ã url ·ÅÈëµ½ÒÑ·ÃÎÊµÄ URL ÖĞ
+			//è¯¥ url æ”¾å…¥åˆ°å·²è®¿é—®çš„ URL ä¸­
 			LinkQueue.addVisitedUrl(visitUrl);
-			//ÌáÈ¡³öÏÂÔØÍøÒ³ÖĞµÄ URL
+			//æå–å‡ºä¸‹è½½ç½‘é¡µä¸­çš„ URL
 			
 			Set<String> links=HtmlParserTool.extracLinks(visitUrl,filter);
-			//ĞÂµÄÎ´·ÃÎÊµÄ URL Èë¶Ó
+			//æ–°çš„æœªè®¿é—®çš„ URL å…¥é˜Ÿ
 			for(String link:links)
 			{
 					LinkQueue.addUnvisitedUrl(link);
 			}
 		}
 	}
-	//main ·½·¨Èë¿Ú
+	//main æ–¹æ³•å…¥å£
 	public static void main(String[]args)
 	{
 		MyCrawler crawler = new MyCrawler();
-		crawler.crawling(new String[]{"http://www.twt.edu.cn"});
+		crawler.crawling(new String[]{"http:/http://www.qau.edu.cn"});
 	}
 
 }
